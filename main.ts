@@ -2,6 +2,7 @@ let noise = 0
 let light2 = 0
 led.enable(false)
 let strip = neopixel.create(DigitalPin.P1, 24, NeoPixelMode.RGB)
+OLED.init(128, 64)
 basic.forever(function () {
     light2 = smarthome.ReadLightIntensity(AnalogPin.P3)
     if (light2 < 50) {
@@ -12,4 +13,13 @@ basic.forever(function () {
             strip.showColor(neopixel.colors(NeoPixelColors.Black))
         }
     }
+})
+basic.forever(function () {
+    OLED.writeString("light:")
+    OLED.writeNum(light2)
+    OLED.newLine()
+    OLED.writeString("noise:")
+    OLED.writeNum(noise)
+    basic.pause(1000)
+    OLED.clear()
 })
